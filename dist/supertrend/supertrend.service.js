@@ -34,8 +34,8 @@ let SupertrendService = class SupertrendService {
         const { data } = await this.api.get(`fapi/v2/positionRisk?${query}`);
         return data;
     }
-    async market(symbol, side, quantity, reduceOnly = false) {
-        const query = (0, helper_1.queryBuilder)({ type: 'MARKET', symbol, side, quantity: Math.abs(quantity), reduceOnly });
+    async market(symbol, side, quantity) {
+        const query = (0, helper_1.queryBuilder)({ type: 'MARKET', symbol, side, quantity: Math.abs(quantity) });
         const { data } = await this.api.post(`fapi/v1/order?${query}`);
         return data;
     }
@@ -46,7 +46,6 @@ let SupertrendService = class SupertrendService {
             side,
             quantity,
             stopPrice,
-            reduceOnly: true
         });
         const { data } = await this.api.post(`fapi/v1/order?${query}`);
         return data;

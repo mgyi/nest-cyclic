@@ -9,6 +9,6 @@ export declare class SupertrendService {
     availableBalance(): Promise<number>;
     cancelAllOrder(symbol: string): Promise<ICancelAllOrder>;
     position(symbol: string): Promise<IPositionInfo[]>;
-    market(symbol: string, side: SIDES, quantity: number, reduceOnly?: boolean): Promise<IOrder>;
+    market(symbol: string, side: SIDES, quantity: number): Promise<IOrder>;
     stopLoss(symbol: string, side: SIDES, quantity: number, stopPrice: number): Promise<IOrder>;
 }

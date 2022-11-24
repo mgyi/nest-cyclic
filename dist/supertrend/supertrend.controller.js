@@ -32,6 +32,8 @@ let SupertrendController = class SupertrendController {
             return 'Invalid Webhook Key';
         }
         const slSide = side === enums_1.SIDES.BUY ? enums_1.SIDES.SELL : enums_1.SIDES.BUY;
+        const qty = parseFloat(quantity.toFixed(4));
+        const sp = parseFloat(stopPrice.toFixed(2));
         try {
             const cancelRes = await this.srv.cancelAllOrder(symbol);
             this.logger.log('cancelRes', cancelRes);
@@ -40,12 +42,12 @@ let SupertrendController = class SupertrendController {
             const currentPAmount = parseFloat(positionRes[0].positionAmt);
             if (currentPAmount !== 0) {
                 let tpSide = currentPAmount > 0 ? enums_1.SIDES.SELL : enums_1.SIDES.BUY;
-                const tpRes = await this.srv.market(symbol, tpSide, Math.abs(currentPAmount), true);
+                const tpRes = await this.srv.market(symbol, tpSide, Math.abs(currentPAmount));
                 this.logger.log('tpRes', tpRes);
             }
-            const marketRes = await this.srv.market(symbol, side, quantity);
+            const marketRes = await this.srv.market(symbol, side, qty);
             this.logger.log('marketRes', marketRes);
-            const stoplossRes = await this.srv.stopLoss(symbol, slSide, quantity, stopPrice);
+            const stoplossRes = await this.srv.stopLoss(symbol, slSide, qty, sp);
             this.logger.log('stoplossRes', stoplossRes);
             return 'ok';
         }

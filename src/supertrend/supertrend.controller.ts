@@ -23,7 +23,7 @@ export class SupertrendController {
     }
     
     const slSide = side === SIDES.BUY ? SIDES.SELL: SIDES.BUY;
-    const qty =  parseFloat(quantity.toFixed(2));
+    const qty =  parseFloat(quantity.toFixed(4));
     const sp = parseFloat(stopPrice.toFixed(2));
     try {
       const cancelRes = await this.srv.cancelAllOrder(symbol);
@@ -36,7 +36,7 @@ export class SupertrendController {
 
       if(currentPAmount !== 0) {
         let tpSide = currentPAmount > 0 ? SIDES.SELL: SIDES.BUY;
-        const tpRes = await this.srv.market(symbol, tpSide, Math.abs(currentPAmount), true);
+        const tpRes = await this.srv.market(symbol, tpSide, Math.abs(currentPAmount));
         this.logger.log('tpRes',tpRes);
       }
 

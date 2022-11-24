@@ -32,8 +32,8 @@ export class SupertrendService {
     return data;
   }
 
-  async market(symbol: string, side: SIDES, quantity: number, reduceOnly = false): Promise<IOrder> {
-    const query = queryBuilder({ type: 'MARKET', symbol, side, quantity: Math.abs(quantity), reduceOnly });
+  async market(symbol: string, side: SIDES, quantity: number): Promise<IOrder> {
+    const query = queryBuilder({ type: 'MARKET', symbol, side, quantity: Math.abs(quantity) });
     const { data } = await this.api.post<IOrder>(`fapi/v1/order?${query}`)
     return data;
   }
@@ -45,7 +45,6 @@ export class SupertrendService {
       side, 
       quantity, 
       stopPrice,
-      reduceOnly: true
     });
     const { data } = await this.api.post<IOrder>(`fapi/v1/order?${query}`)
     return data;
