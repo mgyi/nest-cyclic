@@ -23,7 +23,7 @@ export class SupertrendController {
     }
     
     const slSide = side === SIDES.BUY ? SIDES.SELL: SIDES.BUY;
-    const qty =  parseFloat(quantity.toFixed(4));
+    const qty =  parseFloat(quantity.toFixed(3));
     const sp = parseFloat(stopPrice.toFixed(2));
     try {
       const cancelRes = await this.srv.cancelAllOrder(symbol);
