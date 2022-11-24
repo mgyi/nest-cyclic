@@ -23,6 +23,7 @@ export class SupertrendController {
     }
     
     const slSide = side === SIDES.BUY ? SIDES.SELL: SIDES.BUY;
+    const qty =  parseFloat(quantity.toFixed(2));
     try {
       const cancelRes = await this.srv.cancelAllOrder(symbol);
       this.logger.log('cancelRes',cancelRes);
@@ -38,11 +39,11 @@ export class SupertrendController {
         this.logger.log('tpRes',tpRes);
       }
 
-      const marketRes = await this.srv.market(symbol, side, quantity);
+      const marketRes = await this.srv.market(symbol, side, qty);
       this.logger.log('marketRes',marketRes);
 
 
-      const stoplossRes = await this.srv.stopLoss(symbol, slSide, quantity, stopPrice);
+      const stoplossRes = await this.srv.stopLoss(symbol, slSide, qty, stopPrice);
       this.logger.log('stoplossRes',stoplossRes);
 
       return 'ok';
